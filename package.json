@@ -2,9 +2,11 @@
   "name": "floema",
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack --progress --config webpack.config.build.js",
-    "development": "webpack serve --progress --config webpack.config.development.js",
-    "start": "npm run development"
+    "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\"",
+    "backend:build": "node app.js",
+    "backend:development": "nodemon app.js",
+    "frontend:build": "webpack --progress --config webpack.config.build.js",
+    "frontend:development": "webpack serve --progress --config webpack.config.development.js"
   },
   "author": "reza-e-rabby",
   "license": "ISC",
@@ -38,5 +40,11 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0",
     "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "concurrently": "^9.0.1",
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7",
+    "pug": "^3.0.3"
   }
 }
