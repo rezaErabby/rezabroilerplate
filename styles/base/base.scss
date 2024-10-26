@@ -1,3 +1,7 @@
+@use '../utils/variables.scss' as *;
+@use '../shared/descriptions.scss' as *;
+@use '../utils/responsive.scss' as *;
+
 body {
   @extend %description-16;
   font-family: $font-suisse-bp;
