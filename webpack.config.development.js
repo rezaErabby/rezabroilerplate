@@ -1,10 +1,13 @@
-const { merge } = require('webpack-merge')
+import { merge } from 'webpack-merge'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import config from './webpack.config.js'
 
-const path = require('path')
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-const config = require('./webpack.config')
-
-module.exports = merge(config, {
+export default merge(config, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
