@@ -1,42 +1,110 @@
+@use '../../utils/responsive.scss' as *;
+@use '../../utils/mixins.scss';
+@use '../../utils/variables.scss' as *;
+@use '../../shared/titles.scss';
+@use '../../shared/descriptions.scss';
+@use '../../shared/vertical-titles.scss';
+@use '../../shared/pages.scss' as *;
+
 .collections{
-
+  @extend %page;
+  overflow: hidden
 }
-.collections_wrapper{
-
+.collections__wrapper{
+  @extend %cover;
 }
-.collections_titles{
-
+.collections__titles{
+  @extend %vertical__titles
 }
-.collections_titles_label{
-
+.collections__titles__label{
+  @extend %vertical__titles__label
 }
-.collections_titles_title{
-
+.collections__titles__title{
+  @extend %vertical__titles__title;
 }
-.collections_gallery{
-
+.collections__gallery{
+  @extend %cover;
 }
-.collections_gallery_wrapper{
-
+.collections__gallery__wrapper{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
-.collections_gallery_link{
-
+.collections__gallery__link{
+  display: block;
+  margin: 0 5.3rem;
 }
-.collections_gallery_media{
-
+.collections__gallery__media{
+  height: 63.1rem;
+  width: 44.7rem;
+  position: relative;
 }
-.collections_gallery_media_image{
-
+.collections__gallery__media__image{
+  @extend %cover;
+  object-fit: cover;
 }
-.collections_content{
+.collections__content{
+  @extend %cover;
 
+  @include media('<phone') {
+    display: none;
+  }
 }
-.collections_article{
+.collections__article{
+  position: absolute;
+  left: 8rem;
+  bottom: 8rem;
+  opacity: 0;
 
+  &--active {
+    opacity: 1;
+  }
 }
-.collections_article_title{
-
+.collections__article__title{
+  @extend %title-60;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
 }
-.collections_article_description{
+.collections__article__description{
+  @extend %description-16;
+  max-width: 44rem;
+}
 
+.collections__mobile {
+  bottom: 5rem;
+  display: none;
+  position: absolute;
+
+  @include media('<phone') {
+    display: flex;
+  }
+}
+
+.collections__mobile__item {
+  padding-left: 5rem;
+  width: 100vw;
+}
+
+.collections__mobile__item__label {
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.collections__mobile__item__title {
+  font-family: $font-george-x;
+  font-size: 12rem;
+}
+
+.collections____button {
+  height: 63.1rem;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 44.7rem;
 }

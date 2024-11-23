@@ -1,0 +1,22 @@
+@use '../shared/titles.scss';
+@use '../shared/descriptions.scss';
+%vertical__titles{
+  display: flex;
+  align-items: center;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%,-50%) rotate(-90deg);
+  top: 50%;
+}
+%vertical__titles__label{
+  @extend %description-12;
+  text-transform: uppercase;
+  transform: rotate(90deg);
+  text-align: center;
+  margin: 0 1rem;
+  letter-spacing: 0.1rem;
+}
+%vertical__titles__title{
+  @extend %title-200;
+  padding-top: 2rem;
+}

@@ -1,10 +1,31 @@
+@use '../../utils/responsive.scss' as *;
+@use '../../utils/variables.scss' as *;
+@use '../../utils/mixins.scss';
+@use '../../shared/titles.scss';
+@use '../../shared/pages.scss' as *;
 .about{
 
-}
-.about_wrapper{
+  @extend %page;
+
+
+  //   background-color: $color-cadet-blue;
+  //   color: $color-bright-grey;
+
+
 
 }
+.about__wrapper{
 
-.about_title{
+}
 
+.about__title{
+  @extend %title-100;
+  margin: auto;
+  max-width: 126rem;
+  text-align: center;
+  // line-height: 1rem;
+
+  @include media('<phone'){
+    max-width: 67.7rem;
+  }
 }

@@ -90,11 +90,19 @@ export default {
           },
           'css-loader',
           'postcss-loader',
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              // Enable quietDeps to silence deprecation warnings from dependencies
+              sassOptions: {
+                quietDeps: true,
+              },
+            },
+          },
         ]
       },
       {
-        test: /\.(jpe?g|png|gif|svg|woff2?|fnt|webp)$/,
+        test: /\.(jpe?g|png|gif|svg|fnt|webp)$/,
         loader: 'file-loader',
         options: {
           name (file) {

@@ -1,9 +1,39 @@
+@use '../utils/variables.scss' as *;
+@use '../utils/functions.scss' as *;
+@use '../shared/titles.scss';
+@use '../shared/descriptions.scss';
+@use '../utils/mixins.scss';
+
 .preloader{
-
+  @extend %cover;
+  background-color: $color-contessa;
+  @extend %center;
+  color: $color-quater-spanish-white;
+  // display: none;
+  text-align: center;
+  z-index: z('preloader');
 }
-.preloader_text{
+.preloader__text{
+  font-size: 0;
+  max-width: 66rem;
+  span {
+    display: inline-block;
+    overflow: hidden
+  }
 
+  span span {
+    @extend %title-53;
+  }
 }
-.preloader_number{
+.preloader__number{
+  @extend %description-14;
+  position: absolute;
+  bottom: 7.3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+}
 
+.preloader__number__text {
+  display: inline-block;
 }

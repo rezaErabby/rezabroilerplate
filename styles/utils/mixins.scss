@@ -1,7 +1,6 @@
 %cover {
   height: 100%;
   left: 0;
-  object-fit: cover;
   position: absolute;
   top: 0;
   width: 100%;
@@ -13,6 +12,12 @@
   &::-moz-placeholder { @content; }
   &:-moz-placeholder { @content; }
   &:-ms-input-placeholder { @content; }
+}
+
+%center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 @mixin ratio ($height, $width) {

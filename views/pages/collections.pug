@@ -4,23 +4,29 @@ block variables
   - var template = 'collections'
 
 block content
-  .collections
-    .collections_wrapper
-      .collections_titles
+  .collections(data-background="#BC978C" data-color="#F9F1E7")
+    .collections__wrapper
+      .collections__titles
         each collection, index in collections
-          .collections_titles_label=`${home.data.collection} ${Numbers(index)}`
-          .collections_titles_title=collection.data.title
+          .collections__titles__label!=`${home.data.collection}<br> ${Numbers(index)}`
+          .collections__titles__title=collection.data.title
 
-      .collections_gallery
-        .collections_gallery_wrapper
+      .collections__gallery
+        .collections__gallery__wrapper
           each collection in collections
             each product in collection.data.products
-              a.collections_gallery_link(href=Link(product.products_product))
-                figure.collections_gallery_media
-                  img.collections_gallery_media_image(alt=product.products_product.data.image.alt src=product.products_product.data.image.url)
+              a.collections__gallery__link(href=Link(product.products_product))
+                figure.collections__gallery__media
+                  img.collections__gallery__media__image(alt=product.products_product.data.image.alt data-src=product.products_product.data.image.url)
 
-      .collections_content
-        each collection in collections
-          article.collections_article
-            h2.collections_article_title=`${collection.data.title} ${home.data.collection}`
-            p.collections_article_description=collection.data.description
+      .collections__content
+        each collection, index in collections
+          article.collections__article(class=`${index === 0 ? 'collections__article--active' : ''}`)
+            h2.collections__article__title=`${collection.data.title} ${home.data.collection}`
+            p.collections__article__description=collection.data.description
+
+      .collections__mobile
+        each collection, index in collections
+          .collections__mobile__item
+            .collections__mobile__item__label!=`${home.data.collection}<br>${Numbers(index)}`
+            .collections__mobile__item__title=collection.data.title

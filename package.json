@@ -24,6 +24,7 @@
     "eslint-plugin-standard": "^5.0.0",
     "file-loader": "^6.2.0",
     "glslify-loader": "^2.0.0",
+    "gsap": "^3.12.5",
     "image-minimizer-webpack-plugin": "^4.1.0",
     "imagemin": "^9.0.0",
     "imagemin-gifsicle": "^7.0.0",
@@ -33,9 +34,11 @@
     "imagemin-svgo": "^11.0.1",
     "include-media": "^2.0.0",
     "mini-css-extract-plugin": "^2.9.1",
+    "normalize-wheel": "^1.0.1",
     "postcss-loader": "^8.1.1",
+    "prefix": "^1.0.0",
     "raw-loader": "^4.0.2",
-    "sass": "^1.80.0",
+    "sass": "^1.80.6",
     "sass-loader": "^16.0.2",
     "terser-webpack-plugin": "^5.3.10",
     "webpack": "^5.95.0",
@@ -51,10 +54,13 @@
     "dotenv": "^16.4.5",
     "errorhandler": "^1.5.1",
     "express": "^4.21.1",
+    "install": "^0.13.0",
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.7",
-    "pug": "^3.0.3"
+    "npm": "^10.9.1",
+    "pug": "^3.0.3",
+    "ua-parser-js": "^2.0.0"
   }
 }

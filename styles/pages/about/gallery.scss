@@ -1,12 +1,44 @@
-.about_gallery{
+@use '../../utils/mixins.scss';
+.about__gallery{
+  height: 58.6rem;
+  position: relative;
+  margin: 20rem 0;
+  overflow: hidden;
+
+  &:first-child{
+    margin-top: 0;
+  }
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+.about__gallery__wrapper{
+display: flex;
+align-items: center;
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+}
+.about__gallery__media{
+  height: 43.7rem;
+  width: 30.9rem;
+  margin: 0.4rem;
+  position: relative;
 
 }
-.about_gallery_wrapper{
-
+.about__gallery__media__image{
+  @extend %cover;
+  object-fit: cover;
+  position: relative;
 }
-.about_gallery_media{
 
-}
-.about_gallery_media_image{
-
+.about__gallery__media::after{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
 }

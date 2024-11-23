@@ -9,6 +9,7 @@ import dotenv from 'dotenv'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import logger from 'morgan'
+import { UAParser } from 'ua-parser-js';
 
 dotenv.config()
 
@@ -26,6 +27,15 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(methodOverride())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use((req, res, next) => {
+
+  const parser = new UAParser();
+  const ua = parser.setUA(req.headers['user-agent']).getResult();
+  console.log("ua.device.type->>>>>",ua.device.type)
+  res.locals.isDesktop = ua.device.type === undefined;
+  res.locals.isPhone = ua.device.type === 'mobile';
+  res.locals.isTablet = ua.device.type === 'tablet';
+
+
   res.locals.ctx = {
     prismic
   }
@@ -91,6 +101,7 @@ app.get('/', async (req, res) => {
 app.get('/about', async (req, res) => {
   const about = await client.getSingle('about');
   const defaults = await handleRequest()
+
   res.render('pages/about', { about: about, ...defaults });
 })
 

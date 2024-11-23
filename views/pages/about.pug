@@ -4,40 +4,42 @@ block variables
   - var template = 'about'
 
 block content
-  .about
-    .about_wrapper
-      section.about_gallery
-        .about_gallery_wrapper
+  .about(data-background="#B2B8C3" data-color="#37384C")
+    .about__wrapper
+      section.about__gallery
+        .about__gallery__wrapper
           each media in about.data.gallery
-            figure.about_gallery_media
-              img.about_gallery_media_image(alt=media.image.alt src=media.image.url)
+            figure.about__gallery__media
+              img.about__gallery__media__image(alt=media.image.alt data-src=media.image.url)
 
       each section in about.data.body
         if section.slice_type === 'title'
-          h2.about_title=section.primary.text
+          h2.about__title(data-animation="title")!=section.primary.text.replace(/\n/g, '<br>')
 
         if section.slice_type === 'content'
-          section.about_content
-            .about_content_wrapper
-              p.about_content_label=section.primary.label
-              .about_content_description!=prismicH.asHTML(section.primary.description)
-              figure.about_content_media
-                img.about_content_media_image(alt=section.primary.image.alt src=section.primary.image.url)
+          section.about__content(class=`${section.primary.type === 'Left' ? 'about__content--left' : 'about__content--right'}`)
+            .about__content__wrapper
+              .about__content__box
+                p.about__content__label(data-animation="label")!=section.primary.label
+                .about__content__description!=prismicH.asHTML(section.primary.description).replace(/<p>/g, '<p data-animation="paragraph">')
+              figure.about__content__media
+                img.about__content__media__image(alt=section.primary.image.alt data-src=section.primary.image.url)
 
         if section.slice_type === 'highlight'
-          section.about_highlight
-            .about_highlight_wrapper
+          section.about__highlight
+            .about__highlight__wrapper
               if section.primary.label
-                p.about_highlight_label=section.primary.label
-              h3.about_highlight_title=section.primary.title
+                p.about__highlight__label(data-animation="label")=section.primary.label
+              h3.about__highlight__title(data-animation="highlight")=section.primary.title
 
-              each media in section.items
-                figure.about_highlight_media
-                  img.about_highlight_media_image(alt=media.image.alt, src=media.image.url)
+              .about__highlight__medias
+                each media in section.items
+                  figure.about__highlight__media
+                    img.about__highlight__media__image(alt=media.image.alt, data-src=media.image.url)
 
         if section.slice_type === 'gallery'
-                section.about_gallery
-                  .about_gallery_wrapper
+                section.about__gallery
+                  .about__gallery__wrapper
                     each media in section.items
-                      figure.about_gallery_media
-                        img.about_gallery_media_image(alt=media.image.alt src=media.image.url)
+                      figure.about__gallery__media
+                        img.about__gallery__media__image(alt=media.image.alt data-src=media.image.url)

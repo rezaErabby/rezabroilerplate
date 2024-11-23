@@ -1,6 +1,5 @@
-@import '../../node_modules/include-media/dist/include-media';
 
-$breakpoints: (
+$mybreakpoints: (
   // 'small': 768px,
   // 'medium': 1024px,
   // 'large': 1280px,
@@ -9,4 +8,6 @@ $breakpoints: (
   'phone': 768px,
   'tablet': 1024px,
   'desktop': 1920px
-) !default;
+  ) !default;
+
+  @import '../../node_modules/include-media/dist/include-media';

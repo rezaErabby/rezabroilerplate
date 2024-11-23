@@ -1,19 +1,124 @@
+@use '../../shared/titles.scss';
+@use '../../shared/descriptions.scss';
+@use '../../utils/mixins.scss';
+@use '../../utils/responsive.scss' as *;
 
-.about_highlight{
+.about__highlight{
+  position: relative;
+  margin: 20rem 0;
+  &:first-child{
+    margin-top: 0;
+  }
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+.about__highlight__wrapper{
+  height: 104rem;
+  width: 144rem;
+  margin: auto;
+  position: relative;
+
+  .about__highlight:nth-child(4) & {
+    width: 104rem;
+  }
+
+  @include media('<=phone') {
+    height: 316.2rem;
+    width: 100%;
+
+    .about__highlight:nth-child(4) & {
+      height: 119.3rem;
+      width: 100%;
+    }
+  }
+}
+.about__highlight__label{
+  text-transform: uppercase;
+  @extend %description-12;
+  position: absolute;
+  left: 50%;
+  top: 9rem;
+  transform: translateX(-50%);
+  width: 9.6rem;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+
+  @include media('<=phone') {
+    font-size: 2.4rem;
+    margin-top: 6.5rem;
+    top: 90rem;
+    width: 19rem;
+  }
+}
+.about__highlight__title{
+  @extend %title-200;
+  padding-bottom: 2rem;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%) rotate(-90deg);
+
+  @include media('<=phone') {
+    font-size: 30rem;
+    margin-top: 6.5rem;
+  }
 
 }
-.about_highlight_wrapper{
+.about__highlight__media{
+  height: 76rem;
+  width: 54rem;
+  position: absolute;
 
+  .about__highlight:nth-child(4) & {
+    height: 52.8rem;
+    width: 36rem;
+  }
+
+  &:first-child{
+    left: 0;
+    top: 0;
+  }
+
+  &:last-child {
+    bottom: 0;
+    right: 0;
+  }
+
+  @include media('<=phone') {
+    .about____highlight:last-child & {
+      height: 76rem;
+      width: 54rem;
+
+      &:first-child {
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+      }
+
+      &:last-child {
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+      }
+    }
+  }
 }
-.about_highlight_label{
 
+.about__highlight__media::after{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
 }
-.about_highlight_title{
 
-}
-.about_highlight_media{
 
-}
-.about_highlight_media_image{
-
+.about__highlight__media__image{
+  @extend %cover;
+  object-fit: cover;
 }

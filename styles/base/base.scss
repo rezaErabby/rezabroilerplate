@@ -1,12 +1,66 @@
+@use '../utils/responsive.scss' as *;
 @use '../utils/variables.scss' as *;
 @use '../shared/descriptions.scss' as *;
-@use '../utils/responsive.scss' as *;
+@use '../utils/mixins.scss' as *;
 
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: calc(100vw / 1920 * 10);
+  @extend %cover;
+  overflow: hidden;
+  position: fixed;
+  @include media('<phone'){
+    font-size: calc(100vw / 750 * 10);
+  }
+}
 body {
   @extend %description-16;
   font-family: $font-suisse-bp;
+  @extend %cover;
+  position: fixed;
+  // @include media('<=phone'){
+  //   font-size: 100px;
+  // }
+}
 
-  @include media('<phone') {
-    font-size: 100px;
+a {
+  outline: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  vertical-align: middle;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+button {
+  background: none;
+  outline: none;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+}
+
+.content {
+  @extend %cover;
+}
+[data-animation="label"],
+[data-animation="paragraph"],
+[data-animation="title"] {
+  span {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
   }
 }

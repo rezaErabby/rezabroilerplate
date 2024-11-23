@@ -1,14 +1,32 @@
-@use './base/fonts.scss';
-@use './base/reset.scss';
-@use './base/base.scss';
+@use './base/reset';
+@use './base/fonts';
 
-@use './pages/about/about.scss';
-@use './pages/about/content.scss';
-@use './pages/about/gallery.scss';
-@use './pages/about/highlight.scss';
+// @use './utils/variables';
+// @use './utils/functions';
+// @use './utils/mixins';
+// @use './utils/vendors';
+@use './utils/responsive' as *;
 
-@use './pages/collections/collections.scss';
+// @use './shared/descriptions';
+// @use './shared/links';
+// @use './shared/pages';
+// @use './shared/titles';
+// @use './shared/vertical-titles';
 
-@use './pages/details/details.scss';
+@use './base/base';
 
-@use './pages/home/home.scss'
+@use './components/preloader';
+// @use './components/transition';
+
+@use './layout/navigation';
+
+@use './pages/about/about';
+@use './pages/about/content';
+@use './pages/about/gallery';
+@use './pages/about/highlight';
+
+@use './pages/collections/collections';
+
+@use './pages/details/details';
+
+@use './pages/home/home';
