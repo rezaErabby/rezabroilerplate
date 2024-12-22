@@ -1,42 +1,28 @@
-import Animation from "../classes/Animation.js";
-import GSAP from 'gsap';
-import { calculate, split } from "../utils/text.js";
+import GSAP from 'gsap'
+
+import Animation from 'classes/Animation.js'
 
 export default class Highlight extends Animation {
-  constructor(
-    {
-      element,
-      elements
-    }
-  ){
+  constructor ({ element, elements }) {
     super({
       element,
       elements
     })
-
   }
 
-  animateIn(){
-    this.timelineIn = GSAP.timeline({
-      delay: 0.5
-    })
-
-    this.timelineIn.fromTo(this.element, {
+  animateIn () {
+    GSAP.fromTo(this.element, {
       autoAlpha: 0,
-      scale: 1.2
+      delay: 0.5
     }, {
       autoAlpha: 1,
-      ease: 'expo.out',
-      scale: 1,
-      duration: 1.5
+      duration: 1
     })
-
   }
 
-  animateOut(){
+  animateOut () {
     GSAP.set(this.element, {
       autoAlpha: 0
     })
   }
-
 }

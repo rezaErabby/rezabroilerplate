@@ -93,7 +93,6 @@ export default {
           {
             loader: 'sass-loader',
             options: {
-              // Enable quietDeps to silence deprecation warnings from dependencies
               sassOptions: {
                 quietDeps: true,
               },

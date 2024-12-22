@@ -1,62 +1,28 @@
-import Animation from "../classes/Animation.js";
-import GSAP from 'gsap';
-import { calculate, split } from "../utils/text.js";
-import each from 'lodash/each.js'
+import GSAP from 'gsap'
+
+import Animation from 'classes/Animation.js'
+
 export default class Label extends Animation {
-  constructor(
-    {
-      element,
-      elements
-    }
-  ){
+  constructor ({ element, elements }) {
     super({
       element,
       elements
     })
-
-    split({
-      element: this.element
-    })
-
-    split({
-      element: this.element
-    })
-
-    this.elementLinesSpans = this.element.querySelectorAll('span span')
   }
 
-  animateIn(){
-    this.timelineIn = GSAP.timeline({
+  animateIn () {
+    GSAP.fromTo(this.element, {
+      autoAlpha: 0,
       delay: 0.5
+    }, {
+      autoAlpha: 1,
+      duration: 1
     })
-    this.timelineIn.set(this.element, {
-      autoAlpha: 1
-    })
-    each(this.elementLines, (line, index) => {
-      this.timelineIn.fromTo(
-        line,
-        {
-          y: '100%'
-        },
-        {
-          delay: index * 0.2,
-          duration: 1.5,
-          y: '0%',
-          ease: 'expo.out'
-        },
-        0
-      );
-    })
-
   }
 
-  animateOut(){
+  animateOut () {
     GSAP.set(this.element, {
       autoAlpha: 0
     })
-  }
-
-  onResize(){
-    this.elementLines = calculate(this.elementLinesSpans);
   }
 }

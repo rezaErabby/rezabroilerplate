@@ -7,7 +7,7 @@
 .navigation{
   @extend %cover;
   z-index: z('navigation');
-  color: $color-quater-spanish-white;
+  color: $color-quarter-spanish-white;
   position: fixed;
   pointer-events: none;
 }

@@ -1,65 +1,83 @@
-import Component from "../classes/Component.js";
-import each from 'lodash/each.js'
-import GSAP from 'gsap';
-import { split } from "../utils/text.js";
+import { Texture } from 'ogl'
+import GSAP from 'gsap'
+
+import Component from '../classes/Component.js'
+
+import { split } from 'utils/text.js'
 
 export default class Preloader extends Component {
-  constructor(){
+  constructor ({ canvas }) {
     super({
       element: '.preloader',
       elements: {
         title: '.preloader__text',
         number: '.preloader__number',
-        numberText: '.preloader__number__text',
-        images: document.querySelectorAll('img')
+        numberText: '.preloader__number__text'
       }
     })
 
-    split({
-      element: this.elements.title,
-      expression: '<br>'
-    })
+    this.canvas = canvas
+
+    window.TEXTURES = {}
 
     split({
       element: this.elements.title,
       expression: '<br>'
     })
 
-    this.elements.titlesSpan = this.elements.title.querySelectorAll('span span')
+    split({
+      element: this.elements.title,
+      expression: '<br>'
+    })
 
-    this.length = 0;
+    this.elements.titleSpans = this.elements.title.querySelectorAll('span span')
 
+    this.length = 0
 
     this.createLoader()
   }
 
-  createLoader(){
-    each(this.elements.images, image => {
+  createLoader () {
+    window.ASSETS.forEach(image => {
+      const texture = new Texture(this.canvas.gl, {
+        generateMipmaps: false
+      })
 
-      image.onload = _ => this.onAssetLoaded(image)
-      image.src = image.getAttribute('data-src')
+      const media = new window.Image()
+
+      media.crossOrigin = 'anonymous'
+      media.src = image
+      media.onload = _ => {
+        texture.image = media
+
+        this.onAssetLoaded()
+      }
+
+      window.TEXTURES[image] = texture
     })
-
   }
 
-  onAssetLoaded(image){
-    this.length += 1;
-    const percent = this.length / this.elements.images.length;
+  onAssetLoaded (image) {
+    this.length += 1
 
-    this.elements.numberText.innerHTML = `${Math.round(percent * 100) }%`;
+    const percent = this.length / window.ASSETS.length
 
-    if(percent === 1){
-      this.onLoaded();
+    this.elements.numberText.innerHTML = `${Math.round(percent * 100)}%`
+
+    if (percent === 1) {
+      this.onLoaded()
     }
   }
 
-  onLoaded(){
+  onLoaded () {
     return new Promise(resolve => {
+      this.emit('completed')
+
       this.animateOut = GSAP.timeline({
-        delay: 2
+        delay: 1
       })
 
-      this.animateOut.to(this.elements.titlesSpan, {
+      this.animateOut.to(this.elements.titleSpans, {
         duration: 1.5,
         ease: 'expo.out',
         stagger: 0.1,
@@ -73,23 +91,18 @@ export default class Preloader extends Component {
         y: '100%'
       }, '-=1.4')
 
-      this.animateOut.to(this.element,
-        {
-          duration: 1.5,
-          ease: 'expo.out',
-          scale: 0,
-          transformOrigin: '100% 100%'
-        },
-        '-=1'
-    )
+      this.animateOut.to(this.element, {
+        autoAlpha: 0,
+        duration: 1
+      })
 
-    this.animateOut.call(_ => {
-      this.emit('completed')
-    })
+      this.animateOut.call(_ => {
+        this.destroy()
+      })
     })
   }
 
-  destroy(){
+  destroy () {
     this.element.parentNode.removeChild(this.element)
   }
 }

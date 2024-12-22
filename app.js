@@ -30,7 +30,6 @@ app.use((req, res, next) => {
 
   const parser = new UAParser();
   const ua = parser.setUA(req.headers['user-agent']).getResult();
-  console.log("ua.device.type->>>>>",ua.device.type)
   res.locals.isDesktop = ua.device.type === undefined;
   res.locals.isPhone = ua.device.type === 'mobile';
   res.locals.isTablet = ua.device.type === 'tablet';
@@ -70,11 +69,45 @@ const handleRequest = async () => {
   const meta = await client.getSingle('meta');
   const navigation = await client.getSingle('navigation');
   const preloader = await client.getSingle('preloader');
+  const about = await client.getSingle('about');
+  const home = await client.getSingle('home');
+  const collections = await client.getAllByType('collection', {
+    fetchLinks: 'product.image'
+  });
+
+  let assets = [];
+
+  home.data.gallery.forEach(item => {
+    assets.push(item.image.url)
+  });
+
+  about.data.gallery.forEach(item => {
+    assets.push(item.image.url)
+  })
+
+  about.data.body.forEach(section => {
+    if(section === "gallery"){
+      section.items.forEach(item => {
+        assets.push(item.image.url)
+      })
+    }
+  });
+
+  collections.forEach(collection => {
+    collection.data.products.forEach(item => {
+      assets.push(item.products_product.data.image.url)
+
+    })
+  })
 
   return {
+    assets,
     meta,
     navigation,
-    preloader
+    preloader,
+    collections,
+    home,
+    about
   }
 }
 
@@ -85,24 +118,18 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 app.get('/', async (req, res) => {
-  const collections = await client.getAllByType('collection', {
-    fetchLinks: 'product.image'
-  });
-  const home = await client.getSingle('home');
   const defaults = await handleRequest()
 
   res.render('pages/home', {
-    ...defaults,
-    collections: collections,
-    home: home,
+    ...defaults
   })
 })
 
 app.get('/about', async (req, res) => {
-  const about = await client.getSingle('about');
+
   const defaults = await handleRequest()
 
-  res.render('pages/about', { about: about, ...defaults });
+  res.render('pages/about', { ...defaults });
 })
 
 app.get('/detail/:uid', async (req, res) => {
@@ -114,15 +141,11 @@ app.get('/detail/:uid', async (req, res) => {
 })
 
 app.get('/collections', async (req, res) => {
-  const collections = await client.getAllByType('collection', {
-    fetchLinks: 'product.image'
-  });
-  const home = await client.getSingle('home');
+
+
   const defaults = await handleRequest()
   res.render('pages/collections', {
-    collections: collections,
-    ...defaults,
-    home: home,
+    ...defaults
   })
 })
 
