@@ -4,55 +4,57 @@ import GSAP from 'gsap';
 import map from 'lodash/map.js';
 
 export default class About {
-  constructor({ gl, scene, sizes }) {
-    this.gl = gl;
-    this.group = new Transform();
+  constructor ({ gl, scene, sizes }) {
+    this.gl = gl
     this.sizes = sizes
+
+    this.group = new Transform()
+
     this.createGeometry()
     this.createGalleries()
+
+    this.onResize({
+      sizes: this.sizes
+    })
+
     this.group.setParent(scene)
 
     this.show()
   }
 
-  createGeometry() {
+  createGeometry () {
     this.geometry = new Plane(this.gl)
   }
 
-  createGalleries() {
-    this.galleryElements = document.querySelectorAll('.about__gallery')
+  createGalleries () {
+    this.galleriesElements = document.querySelectorAll('.about__gallery')
 
-    this.galleries = map(this.galleryElements, (element, index) => {
+    this.galleries = map(this.galleriesElements, (element, index) => {
       return new Gallery({
         element,
         geometry: this.geometry,
         index,
-        scene: this.group,
         gl: this.gl,
+        scene: this.group,
         sizes: this.sizes
       })
     })
-
   }
 
   /**
-   * Animations
+   * Animations.
    */
-
-  show(){
+  show () {
     map(this.galleries, gallery => gallery.show())
-
   }
 
-  hide(){
+  hide () {
     map(this.galleries, gallery => gallery.hide())
-
   }
 
   /**
- * Events
- */
-
+   * Events.
+   */
   onResize (event) {
     map(this.galleries, gallery => gallery.onResize(event))
   }
@@ -69,21 +71,21 @@ export default class About {
     map(this.galleries, gallery => gallery.onTouchUp(event))
   }
 
-  onWheel({pixelX, pixelY}){
+  onWheel ({ pixelX, pixelY }) {
+
   }
 
   /**
- * Loops
- */
-
-  update(scroll) {
-    map(this.galleries, gallery => gallery.update(scroll) )
+   * Update.
+   */
+  update (scroll) {
+    map(this.galleries, gallery => gallery.update(scroll))
   }
 
-   /**
+  /**
    * Destroy.
    */
-   destroy () {
+  destroy () {
     map(this.galleries, gallery => gallery.destroy())
   }
 }
